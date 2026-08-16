@@ -9,6 +9,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
+const RENDER_BASE = 2.2;
+const SCALE_MIN = 0.5;
+const SCALE_MAX = 2;
+const SCALE_STEP = 0.1;
+
 type PdfViewerProps = {
   fileUrl: string;
   downloadUrl: string;
@@ -18,7 +23,7 @@ type PdfViewerProps = {
 export function PdfViewer({ fileUrl, downloadUrl, fileName }: PdfViewerProps) {
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(1.1);
+  const [scale, setScale] = useState(1);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,7 +72,9 @@ export function PdfViewer({ fileUrl, downloadUrl, fileName }: PdfViewerProps) {
             type="button"
             className={styles.toolButton}
             aria-label="Reduzir zoom"
-            onClick={() => setScale((s) => Math.max(0.6, Number((s - 0.1).toFixed(2))))}
+            onClick={() =>
+              setScale((s) => Math.max(SCALE_MIN, Number((s - SCALE_STEP).toFixed(2))))
+            }
           >
             −
           </button>
@@ -76,7 +83,9 @@ export function PdfViewer({ fileUrl, downloadUrl, fileName }: PdfViewerProps) {
             type="button"
             className={styles.toolButton}
             aria-label="Aumentar zoom"
-            onClick={() => setScale((s) => Math.min(2.2, Number((s + 0.1).toFixed(2))))}
+            onClick={() =>
+              setScale((s) => Math.min(SCALE_MAX, Number((s + SCALE_STEP).toFixed(2))))
+            }
           >
             +
           </button>
@@ -113,7 +122,7 @@ export function PdfViewer({ fileUrl, downloadUrl, fileName }: PdfViewerProps) {
             >
               <Page
                 pageNumber={pageNumber}
-                scale={scale}
+                scale={scale * RENDER_BASE}
                 className={styles.page}
                 renderTextLayer
                 renderAnnotationLayer
