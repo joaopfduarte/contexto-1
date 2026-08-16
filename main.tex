@@ -2,6 +2,18 @@
 
 \usetheme{cefetmg}
 \graphicspath{{assets/images/}}
+\usepackage{xurl}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{referencias.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\newcommand{\slideLogos}[1]{%
+  \vfill
+  \begingroup
+  \centering
+  #1\par
+  \endgroup
+}
 
 \hypersetup{
   colorlinks=true,
@@ -22,7 +34,7 @@
     Pedro Claudio Jacome%
   }{Erick Reis Miranda, João Pedro Ferreira Duarte, Marcos Vinicius de Oliveira Silva, Pedro Claudio Jacome}%
 }
-\institute[CEFET-MG]{Campus Timóteo --- Graduação em Engenharia de Computação}
+\institute[CEFET-MG]{Campus Timóteo, Graduação em Engenharia de Computação}
 \date{\cefetCapaData}
 
 \institutionhead{%
@@ -46,6 +58,7 @@
 \input{sections/05-caso-real}
 \input{sections/06-decisao}
 \input{sections/07-pergunta}
+\input{sections/08-referencias}
 
 \cefetThanksFrame
 

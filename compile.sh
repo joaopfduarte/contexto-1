@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Compila a apresentacao Beamer (LuaLaTeX, duas passagens).
+# Compila a apresentacao Beamer (LuaLaTeX + Biber).
 # Uso: ./compile.sh [web]
 set -euo pipefail
 
@@ -12,14 +12,21 @@ if [[ -n "$cmd" && "$cmd" != "web" ]]; then
   exit 1
 fi
 
-echo "[1/3] limpar artefatos auxiliares"
+echo "[1/5] limpar artefatos auxiliares"
 rm -f main.aux main.nav main.snm main.toc main.out main.log main.pdf main.vrb \
-  main.lof main.lot main.lol texput.log texput.pdf
+  main.lof main.lot main.lol main.bbl main.bcf main.blg main.run.xml \
+  texput.log texput.pdf
 
-echo "[2/3] lualatex passo 1/2"
+echo "[2/5] lualatex passo 1/3"
 lualatex -interaction=nonstopmode main.tex
 
-echo "[3/3] lualatex passo 2/2"
+echo "[3/5] biber"
+biber main
+
+echo "[4/5] lualatex passo 2/3"
+lualatex -interaction=nonstopmode main.tex
+
+echo "[5/5] lualatex passo 3/3"
 lualatex -interaction=nonstopmode main.tex
 
 echo "ok — ${ROOT}/main.pdf"
