@@ -6,8 +6,10 @@
 *.sty text eol=lf
 *.md text eol=lf
 
-# Scripts
+# Scripts e CI
 *.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
 
 # Metadados Git
 .gitignore text eol=lf

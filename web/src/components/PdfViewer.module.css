@@ -1,0 +1,116 @@
+.viewer {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--cefet-primary-dark) 0%,
+    #152238 28%,
+    var(--cefet-bg) 28%,
+    var(--cefet-bg) 100%
+  );
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  height: var(--toolbar-height);
+  padding: 0 1rem;
+  background: rgba(15, 27, 48, 0.92);
+  color: #fff;
+  border-bottom: 1px solid rgba(5, 103, 250, 0.35);
+}
+
+.toolbarGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.toolButton {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #fff;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2px;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 160ms var(--ease-out);
+}
+
+.toolButton:hover:not(:disabled) {
+  background: rgba(5, 103, 250, 0.28);
+}
+
+.toolButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.78);
+  min-width: 7.5rem;
+  text-align: center;
+}
+
+.stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 1rem 2rem;
+}
+
+.canvasWrap {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 280ms var(--ease-out),
+    transform 280ms var(--ease-out);
+}
+
+.canvasWrapReady {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page {
+  box-shadow:
+    0 1px 0 rgba(26, 39, 68, 0.06),
+    0 18px 40px rgba(15, 27, 48, 0.18);
+  background: #fff;
+}
+
+.state {
+  margin: auto;
+  max-width: 28rem;
+  padding: 2rem 1.25rem;
+  text-align: center;
+  color: var(--cefet-text);
+}
+
+.stateTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--cefet-primary);
+  margin: 0 0 0.5rem;
+}
+
+.stateBody {
+  margin: 0 0 1rem;
+  color: var(--cefet-muted);
+  line-height: 1.5;
+}
+
+.stateLink {
+  color: var(--cefet-accent);
+  font-weight: 600;
+}

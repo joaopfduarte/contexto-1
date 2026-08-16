@@ -1,0 +1,92 @@
+name: Build and Deploy Pages
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile slides
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          compiler: lualatex
+          args: -interaction=nonstopmode
+          texlive_version: 2025
+
+      - name: Prepare SPA documents and build-info
+        run: |
+          mkdir -p web/public/documents
+          cp main.pdf web/public/documents/slides.pdf
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          sha = os.environ.get("GITHUB_SHA", "local")
+          payload = {
+              "sha": sha,
+              "shortSha": sha[:7],
+              "branch": os.environ.get("GITHUB_REF_NAME", "dev"),
+              "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+          }
+          with open("web/public/build-info.json", "w", encoding="utf-8") as fh:
+              json.dump(payload, fh, indent=2)
+              fh.write("\n")
+          PY
+
+      - name: Upload PDF artefact (PR review)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdfs
+          path: |
+            main.pdf
+            web/public/documents/slides.pdf
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install and build SPA
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload Pages artefact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: web/dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

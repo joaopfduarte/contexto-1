@@ -65,6 +65,11 @@ _minted*
 # Entrega gerada
 main.pdf
 
+# Visualizador web
+web/node_modules/
+web/dist/
+web/public/documents/*.pdf
+
 # Fontes TTF/OTF locais (fallback Fira se ausentes)
 tex-config/tipografia/**/*.ttf
 tex-config/tipografia/**/*.otf
