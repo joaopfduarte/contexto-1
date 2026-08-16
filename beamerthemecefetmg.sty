@@ -1,0 +1,298 @@
+% beamerthemecefetmg.sty -- tema Beamer (CEFET-MG / Contexto Social e Profissional)
+% Sem logomarca na capa: apenas texto institucional.
+% CWD: raiz do repositorio.
+\ProvidesPackage{beamerthemecefetmg}[2026/08/16 v1.0]
+
+\mode<presentation>
+
+\RequirePackage[brazil]{babel}
+\RequirePackage{graphicx}
+\graphicspath{{assets/images/}}
+\RequirePackage{booktabs}
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{amssymb}
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning}
+\RequirePackage{fontawesome5}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{listings}
+
+% --- Paleta ---
+\definecolor{cefetPrimary}{HTML}{1A2744}
+\definecolor{cefetPrimaryDark}{HTML}{0F1B30}
+\definecolor{cefetAccent}{HTML}{0567FA}
+\definecolor{cefetSuccess}{HTML}{27AE60}
+\definecolor{cefetWarning}{HTML}{F2994A}
+\definecolor{cefetDanger}{HTML}{EB5757}
+\definecolor{cefetBg}{HTML}{FAFBFC}
+\definecolor{cefetText}{HTML}{2C3E50}
+\definecolor{cefetMuted}{HTML}{262626}
+\definecolor{cefetCapaMuted}{HTML}{95A5A6}
+\definecolor{cefetCodeBg}{HTML}{F0F3F5}
+\definecolor{cefetBlockBg}{HTML}{EBF5FB}
+\definecolor{cefetAlertBg}{HTML}{FDEDEC}
+\definecolor{cefetExampleBg}{HTML}{EAFAF1}
+\definecolor{cefetFrameBorder}{HTML}{DDE1E5}
+
+% --- Fontes: corpo DM Sans; codigo JetBrains Mono; display Bricolage (LuaLaTeX + fontspec) ---
+\input{tex-config/tipografia/apresentacao-fonts.tex}
+\usefonttheme{professionalfonts}
+
+\setbeamerfont{title}{series=\bfseries,size=\Large}
+\setbeamerfont{subtitle}{series=\mdseries,size=\normalsize}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{institute}{size=\scriptsize}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{framesubtitle}{series=\mdseries,size=\normalsize}
+\setbeamerfont{footline}{size=\scriptsize}
+
+\setbeamercolor{normal text}{fg=cefetText,bg=cefetBg}
+\setbeamercolor{structure}{fg=cefetAccent}
+\setbeamercolor{frametitle}{fg=cefetPrimary,bg=cefetBg}
+\setbeamercolor{framesubtitle}{fg=cefetMuted}
+\setbeamercolor{frametitle rule}{fg=cefetAccent}
+\setbeamercolor{footline left}{fg=cefetMuted,bg=}
+\setbeamercolor{footline center}{fg=cefetMuted,bg=}
+\setbeamercolor{footline right}{fg=cefetAccent,bg=}
+\setbeamercolor{section divider number}{fg=cefetAccent}
+\setbeamercolor{section divider title}{fg=white}
+
+\setbeamercolor{block title}{fg=cefetPrimary,bg=cefetBlockBg}
+\setbeamercolor{block body}{fg=cefetText,bg=cefetBlockBg}
+\setbeamercolor{block title alerted}{fg=cefetDanger,bg=cefetAlertBg}
+\setbeamercolor{block body alerted}{fg=cefetText,bg=cefetAlertBg}
+\setbeamercolor{block title example}{fg=cefetSuccess,bg=cefetExampleBg}
+\setbeamercolor{block body example}{fg=cefetText,bg=cefetExampleBg}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{sidebar left}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+\setbeamersize{text margin left=1.05cm,text margin right=0.95cm}
+
+\AtBeginDocument{%
+  \linespread{1.15}\selectfont
+}
+
+% --- Listas ---
+\setlength{\leftmargini}{1.05cm}
+\setbeamertemplate{itemize item}{%
+  \scriptsize\raisebox{0.12ex}{\textcolor{cefetAccent}{$\blacksquare$}}%
+}
+\setbeamertemplate{itemize subitem}{%
+  \scriptsize\raisebox{0.1ex}{\textcolor{cefetMuted}{$\circ$}}%
+}
+\setbeamertemplate{itemize subsubitem}{%
+  \scriptsize\textcolor{cefetMuted}{--}%
+}
+\setlength{\itemsep}{6pt}
+
+% --- Sumario ---
+\setbeamertemplate{section in toc}{%
+  \textcolor{cefetAccent}{\small$\blacksquare$}\hspace{0.45em}%
+  {\cefetDisplay\inserttocsection}\par\vspace{2pt}%
+}
+\setbeamertemplate{section in toc shaded}{%
+  \textcolor{cefetMuted}{\small$\blacksquare$}\hspace{0.45em}%
+  {\color{cefetMuted}\cefetDisplay\inserttocsection}\par\vspace{2pt}%
+}
+
+% --- Listings ---
+\lstdefinestyle{cefetcode}{%
+  basicstyle=\ttfamily\scriptsize,
+  backgroundcolor=\color{cefetCodeBg},
+  numbers=left,
+  numberstyle=\tiny\color{cefetMuted},
+  numbersep=10pt,
+  breaklines=true,
+  columns=fullflexible,
+  aboveskip=6pt,
+  belowskip=6pt,
+  xleftmargin=10pt,
+  framexleftmargin=14pt,
+  frame=leftline,
+  framerule=2pt,
+  rulecolor=\color{cefetAccent},
+}
+\lstset{style=cefetcode}
+
+\newcommand{\cefetInstHeadText}{}
+\newcommand{\institutionhead}[1]{\renewcommand{\cefetInstHeadText}{#1}}
+
+\newcommand{\cefetCapaData}{%
+  \ifnum\day<10 0\fi\number\day/%
+  \ifnum\month<10 0\fi\number\month/%
+  \number\year%
+}
+
+\newcommand{\cefetBlueBackgroundImage}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[cefetPrimaryDark] (current page.south west) rectangle (current page.north east);
+    \clip (current page.south west) rectangle (current page.north east);
+    \IfFileExists{assets/images/presentation-background-blue.jpg}{%
+      \node[inner sep=0pt,outer sep=0pt,anchor=center] at (current page.center) {%
+        \includegraphics[width=\dimexpr\paperwidth+2pt\relax]{%
+          assets/images/presentation-background-blue.jpg}%
+      };
+    }{}%
+  \end{tikzpicture}%
+}
+
+\newcommand{\cefetBlueFrameSetup}{%
+  \setbeamercolor{background canvas}{bg=cefetPrimaryDark}%
+  \setbeamercolor{background}{bg=cefetPrimaryDark}%
+}
+
+\setbeamertemplate{title page}{%
+  \cefetBlueFrameSetup
+  \cefetBlueBackgroundImage
+  \vspace*{1.1cm}
+  \begin{center}
+    {\cefetDisplay\color{cefetCapaMuted}\small\mdseries\cefetInstHeadText\par}
+    \vspace{1.0em}
+    {\cefetDisplay\color{white}\usebeamerfont{title}\inserttitle\par}
+    \vspace{0.55em}
+    {\cefetDisplay\color{white}\usebeamerfont{subtitle}\insertsubtitle\par}
+    \vspace{0.85em}
+    {\color{cefetAccent}\rule{0.4\paperwidth}{0.4pt}\par}
+    \vspace{0.75em}
+    {\cefetDisplay\color{white}\usebeamerfont{author}\insertauthor\par}
+    \vspace{0.55em}
+    {\cefetDisplay\color{cefetCapaMuted}\scriptsize\insertdate\par}
+  \end{center}\vspace*{0.4em}
+}
+
+\setbeamertemplate{frametitle}{%
+  \vspace{-0.65ex}%
+  {\color{cefetAccent}\rule{\textwidth}{2pt}}\\[0.32em]
+  \begin{beamercolorbox}[wd=\textwidth,sep=0pt]{frametitle}
+    \hspace{0.35cm}\begin{minipage}[t]{\dimexpr\textwidth-0.7cm\relax}%
+      {\cefetDisplay\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}
+      \vspace{0.1em}
+      {\usebeamercolor[fg]{frametitle rule}\rule{0.15\textwidth}{0.4pt}\par}
+      \ifx\insertframesubtitle\@empty\else
+        \vspace{0.18em}
+        {\cefetDisplay\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}
+      \fi
+    \end{minipage}%
+  \end{beamercolorbox}%
+  \vspace{0.2em}%
+}
+
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox to \textwidth{%
+    \hfill
+    \usebeamercolor[fg]{footline right}%
+    \usebeamerfont{footline}%
+    \insertframenumber\,/\,\inserttotalframenumber\hspace{0.55cm}%
+  }%
+}
+
+% Listas compactas dentro de blocos cefet* (menor recuo que itemize de slide).
+\newcommand{\cefetBlockListSetup}{%
+  \setlength{\leftmargini}{0.42cm}%
+  \setlength{\labelwidth}{0.32cm}%
+  \setlength{\labelsep}{0.22em}%
+  \setlength{\itemsep}{4pt}%
+}
+
+\newtcolorbox{cefetblock}[1]{%
+  enhanced,
+  colback=cefetBlockBg,
+  colframe=cefetAccent,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=1pt,
+  outer arc=1pt,
+  title={#1},
+  fonttitle=\cefetDisplay\bfseries\small\color{cefetAccent},
+  coltitle=cefetAccent,
+  colbacktitle=cefetBlockBg,
+  titlerule=0.4pt,
+  titlerule style={draw=cefetAccent!40},
+  top=2mm,
+  bottom=2mm,
+  left=3mm,
+  right=3mm,
+  before upper=\cefetBlockListSetup,
+}
+\newtcolorbox{cefetblockplain}{%
+  enhanced,
+  colback=cefetBlockBg,
+  colframe=cefetAccent,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=1pt,
+  outer arc=1pt,
+  top=2mm,
+  bottom=2mm,
+  left=3mm,
+  right=3mm,
+  before upper=\cefetBlockListSetup,
+}
+\newtcolorbox{cefetalertblock}[1]{%
+  enhanced,
+  colback=cefetAlertBg,
+  colframe=cefetDanger,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=1pt,
+  title={#1},
+  fonttitle=\cefetDisplay\bfseries\small\color{cefetDanger},
+  colbacktitle=cefetAlertBg,
+  titlerule=0.4pt,
+  titlerule style={draw=cefetDanger!35},
+  top=2mm,
+  bottom=2mm,
+  left=3mm,
+  right=3mm,
+  before upper=\cefetBlockListSetup,
+}
+\newtcolorbox{cefetexampleblock}[1]{%
+  enhanced,
+  colback=cefetExampleBg,
+  colframe=cefetSuccess,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=1pt,
+  title={#1},
+  fonttitle=\cefetDisplay\bfseries\small\color{cefetSuccess},
+  colbacktitle=cefetExampleBg,
+  titlerule=0.4pt,
+  titlerule style={draw=cefetSuccess!35},
+  top=2mm,
+  bottom=2mm,
+  left=3mm,
+  right=3mm,
+  before upper=\cefetBlockListSetup,
+}
+
+\newcommand{\cefetThanksFrame}{%
+  \begingroup
+  \cefetBlueFrameSetup
+  \begin{frame}[plain,noframenumbering]%
+    \cefetBlueBackgroundImage
+    \vspace*{2.0cm}
+    \begin{center}
+      {\cefetDisplay\color{white}\fontsize{26}{30}\selectfont\bfseries Agradecemos\par}
+      \vspace{1.0em}
+      {\Large\textcolor{white}{\faComments}\par}
+      \vspace{1.2em}
+      {\cefetDisplay\small\bfseries\textcolor{cefetAccent}\insertauthor\par}
+    \end{center}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south,inner sep=0pt] at ([yshift=0.75cm]current page.south) {%
+        {\cefetDisplay\footnotesize\color{white}\insertshortinstitute}%
+      };
+    \end{tikzpicture}
+  \end{frame}%
+  \endgroup
+}
+
+\mode<all>

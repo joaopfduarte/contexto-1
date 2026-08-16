@@ -1,0 +1,77 @@
+% apresentacao-fonts.tex -- corpo (DM Sans), codigo (JetBrains Mono), display (Bricolage)
+% Carregado por beamerthemecefetmg.sty; CWD de compilacao = raiz do repositorio.
+\RequirePackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+
+\IfFileExists{tex-config/tipografia/DM_Sans/static/DMSans-Regular.ttf}{%
+  \setsansfont{DMSans}[
+    Path = tex-config/tipografia/DM_Sans/static/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic,
+    SizeFeatures={
+      {Size={-}, Font=*-Regular},
+      {Size={9-}, Font=*-Bold},
+    },
+  ]%
+}{%
+  \PackageWarning{beamerthemecefetmg}{%
+    DM Sans nao encontrada em tex-config/tipografia/; corpo usara FiraSans do TeX Live.%
+  }%
+  \setsansfont{FiraSans}[
+    Extension = .otf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic,
+  ]%
+}
+
+\IfFileExists{tex-config/tipografia/JetBrains_Mono/static/JetBrainsMono-Regular.ttf}{%
+  \setmonofont{JetBrainsMono}[
+    Scale = 0.92,
+    Path = tex-config/tipografia/JetBrains_Mono/static/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic,
+  ]%
+}{%
+  \PackageWarning{beamerthemecefetmg}{%
+    JetBrains Mono nao encontrada em tex-config/tipografia/; codigo usara FiraMono do TeX Live.%
+  }%
+  \setmonofont{FiraMono}[
+    Scale = 0.92,
+    Extension = .otf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Oblique,
+    BoldItalicFont = *-BoldOblique,
+  ]%
+}
+
+\newcommand{\cefetDisplay}{}
+
+\IfFileExists{tex-config/tipografia/Bricolage_Grotesque/static/BricolageGrotesque-Regular.ttf}{%
+  \newfontfamily\cefetDisplayFont{BricolageGrotesque}[
+    Path = tex-config/tipografia/Bricolage_Grotesque/static/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Regular,
+    BoldItalicFont = *-Bold,
+    SizeFeatures={
+      {Size={-}, Font=*-Regular},
+      {Size={9-}, Font=*-Bold},
+    },
+  ]%
+  \renewcommand{\cefetDisplay}{\cefetDisplayFont\selectfont}%
+}{%
+  \PackageWarning{beamerthemecefetmg}{%
+    Bricolage Grotesque nao encontrada em tex-config/tipografia/;%
+    titulos de destaque usarao DM Sans.%
+  }%
+}

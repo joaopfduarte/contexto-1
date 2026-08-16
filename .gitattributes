@@ -1,0 +1,22 @@
+# Default
+* text=auto
+
+# Fontes LaTeX / Beamer
+*.tex text diff=tex eol=lf
+*.sty text eol=lf
+*.md text eol=lf
+
+# Scripts
+*.sh text eol=lf
+
+# Metadados Git
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Binarios
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ttf binary
+*.otf binary

@@ -1,0 +1,70 @@
+# Nucleo LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.lol
+*.fls
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# Beamer
+*.nav
+*.snm
+*.vrb
+
+# Intermedios
+*.dvi
+*.xdv
+*-converted-to.*
+texput.log
+texput.pdf
+
+# latexmk / SyncTeX
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.pdfsync
+
+# Indice / glossario
+*.idx
+*.ilg
+*.ind
+*.ist
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.nlo
+*.nls
+
+# BibTeX / Biber
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+*.brf
+
+# Outros temporarios
+*.auxlock
+*.listing
+_minted*
+*.pyg
+*.thm
+*.tdo
+
+# Entrega gerada
+main.pdf
+
+# Fontes TTF/OTF locais (fallback Fira se ausentes)
+tex-config/tipografia/**/*.ttf
+tex-config/tipografia/**/*.otf

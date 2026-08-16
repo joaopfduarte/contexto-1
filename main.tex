@@ -1,0 +1,52 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usetheme{cefetmg}
+\graphicspath{{assets/images/}}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=cefetPrimary!80!black,
+  urlcolor=cefetAccent,
+  citecolor=cefetAccent,
+  pdftitle={Crimes Digitais: limites entre atividade profissional e conduta criminosa},
+  pdfauthor={Erick Reis Miranda, Joao Pedro Ferreira Duarte, Marcos Vinicius de Oliveira Silva, Pedro Claudio Jacome}
+}
+
+\title{Crimes Digitais: limites entre atividade\\ profissional e conduta criminosa}
+\subtitle{Contexto Social e Profissional da Engenharia de Computação}
+\author[Grupo]{%
+  \texorpdfstring{%
+    Erick Reis Miranda\\
+    João Pedro Ferreira Duarte\\
+    Marcos Vinicius de Oliveira Silva\\
+    Pedro Claudio Jacome%
+  }{Erick Reis Miranda, João Pedro Ferreira Duarte, Marcos Vinicius de Oliveira Silva, Pedro Claudio Jacome}%
+}
+\institute[CEFET-MG]{Campus Timóteo --- Graduação em Engenharia de Computação}
+\date{\cefetCapaData}
+
+\institutionhead{%
+  CEFET-MG - Campus Timóteo\\[0.1em]
+  Graduação em Engenharia de Computação%
+}
+
+\begin{document}
+
+\begingroup
+\cefetBlueFrameSetup
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+\endgroup
+
+\input{sections/01-problema}
+\input{sections/02-em-jogo}
+\input{sections/03-lei}
+\input{sections/04-dilema}
+\input{sections/05-caso-real}
+\input{sections/06-decisao}
+\input{sections/07-pergunta}
+
+\cefetThanksFrame
+
+\end{document}
